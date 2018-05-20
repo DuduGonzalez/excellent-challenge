@@ -1,5 +1,7 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.Weather.WeatherInfo;
+
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
  * design. Read: create your own classes and packages as appropriate.
@@ -10,7 +12,7 @@ public final class App {
 
     public static void main(String... args) {
 
-        // Your preparation code …
+    	WeatherInfo weatherReader = new WeatherInfo();
 
         String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
         String teamWithSmallesGoalSpread = "A good team"; // Your goal analysis function call …
