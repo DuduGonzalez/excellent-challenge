@@ -11,7 +11,10 @@ public class FootballInfo implements IFootballInfo {
 	private static String csvFile = "src/main/resources/de/exxcellent/challenge/football.csv";
     
 	public FootballInfo() {
-		loadData(csvFile);
+		this(csvFile);
+	}
+	public FootballInfo(String filePath) {
+		loadData(filePath);
 	}
 	@Override
 	public void loadData(String FilePath) {
@@ -33,17 +36,21 @@ public class FootballInfo implements IFootballInfo {
 	public String getSmallestGoalDistance() {
 		double minDifference = Double.POSITIVE_INFINITY;
 	 	String team = null;		 		   
-	    for(String v : footballValues) {
-	    	String newLine = v;
-	    	// use the character to separate the values of the element
-            String[] values = newLine.split(csvSplitBy);
-            //compare the maximum and the minimum and store always the small Abs difference
-            double dif = Math.abs(Double.parseDouble(values[5]) - Double.parseDouble(values[6]));
-           if(dif < minDifference){
-        	   minDifference = dif;
-        	   team = values[0];
-           }
-	     }
+	 	try {
+	 		for(String v : footballValues) {
+		    	String newLine = v;
+		    	// use the character to separate the values of the element
+	            String[] values = newLine.split(csvSplitBy);
+	            //compare the maximum and the minimum and store always the small Abs difference
+	            double dif = Math.abs(Double.parseDouble(values[5]) - Double.parseDouble(values[6]));
+	           if(dif < minDifference){
+	        	   minDifference = dif;
+	        	   team = values[0];
+	           }
+		     }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	    
 	    return team;
 	}
 

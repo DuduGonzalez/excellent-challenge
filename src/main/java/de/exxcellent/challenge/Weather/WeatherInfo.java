@@ -15,7 +15,11 @@ public class WeatherInfo implements IWeatherInfo {
 	private static final String cvsSplitBy = ",";
     
 	public WeatherInfo() {
-		loadData(csvFile);
+		this(csvFile);
+	}
+	public WeatherInfo(String filePath){
+	 	//initialize the Object reading the Data
+	 	loadData(filePath);
 	}
 	/*
 	 *  Read the data and store it in parameter weatherValues
@@ -42,18 +46,21 @@ public class WeatherInfo implements IWeatherInfo {
 	public String getSmallestTempSpread() {
 		double minDifference = Double.POSITIVE_INFINITY;
 	 	String day = null; 		   
-	    for(String val : weatherValues) {
-	    	String newLine = val;
-	    	// use the character to separate the values of the element
-            String[] values = newLine.split(cvsSplitBy);
-            //compare the maximum and the minimum and store always the last biggest value
-            double dif = Double.parseDouble(values[1]) - Double.parseDouble(values[2]);
-           if(dif < minDifference){
-        	   minDifference = dif;
-        	   day = values[0];
-           }
-	     }
+	 	try {
+	 		 for(String val : weatherValues) {
+	 	    	String newLine = val;
+	 	    	// use the character to separate the values of the element
+	             String[] values = newLine.split(cvsSplitBy);
+	             //compare the maximum and the minimum and store always the last biggest value
+	             double dif = Double.parseDouble(values[1]) - Double.parseDouble(values[2]);
+	            if(dif < minDifference){
+	         	   minDifference = dif;
+	         	   day = values[0];
+	            }
+	 	     }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	   
 	    return day;
 	}
-
 }
